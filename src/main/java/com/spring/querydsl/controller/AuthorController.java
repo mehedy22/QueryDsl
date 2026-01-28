@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/authors")
 @RequiredArgsConstructor
@@ -24,6 +26,12 @@ public class AuthorController {
     public ResponseEntity<AuthorResponseDTO> getAuthorById(@PathVariable Long id){
         AuthorResponseDTO authorResponseDTO=authorService.getAuthor(id);
         return ResponseEntity.ok(authorResponseDTO);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AuthorResponseDTO>> getAllAuthors(){
+        List<AuthorResponseDTO> authors=authorService.getAllAuthors();
+        return ResponseEntity.ok(authors);
     }
 
 }

@@ -8,6 +8,8 @@ import com.spring.querydsl.respository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
@@ -23,5 +25,10 @@ public class AuthorService {
     public AuthorResponseDTO getAuthor(Long id) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
         return authorMapper.toAuthorResponse(author);
+    }
+
+    public List<AuthorResponseDTO> getAllAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        return authors.stream().map(authorMapper::toAuthorResponse).toList();
     }
 }
